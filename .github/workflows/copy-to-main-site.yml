@@ -24,7 +24,7 @@ jobs:
         with:
           repository: neybaf/gouez_f
           token: ${{ secrets.TARGET_REPO_TOKEN }}
-          path: neybaf.github.io/gouez_f
+          path: main_site
 
       - name: Copy garden to main site repo
         run: |
