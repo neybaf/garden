@@ -37,6 +37,6 @@ jobs:
           cd main_site
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "GitHub Actions"
-          git add blog/garden
+          git add garden
           git commit -m "Update digital garden from $GITHUB_SHA" || echo "No changes to commit"
           git push
