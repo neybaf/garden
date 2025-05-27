@@ -28,9 +28,9 @@ jobs:
 
       - name: Copy garden to main site repo
         run: |
-          rm -rf neybaf.github.io/gouez_f/garden
-          mkdir -p neybaf.github.io/gouez_f/garden
-          cp -r _site/* neybaf.github.io/gouez_f/garden/ 
+          rm -rf main_site/garden
+          mkdir -p main_site/garden
+          cp -r _site/* main_site/garden/ 
 
       - name: Commit & push to main site
         run: |
