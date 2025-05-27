@@ -36,7 +36,7 @@ jobs:
       - name: Debug: List files before copy
         run: |
           ls -l
-          ls -l _site || echo "_site does not exist"
+          ls -l dist || echo "_site does not exist"
           ls -l main_site
 
       # 6. Copie le site généré dans le bon dossier du repo principal
@@ -44,7 +44,7 @@ jobs:
         run: |
           rm -rf main_site/garden
           mkdir -p main_site/garden
-          cp -r _site/* main_site/garden/
+          cp -r dist/* main_site/garden/
 
       # 7. Commit et push les changements sur le repo principal
       - name: Commit & push to main site
