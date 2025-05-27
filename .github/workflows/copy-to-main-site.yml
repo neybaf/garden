@@ -10,17 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Clone le repo du garden (là où vous poussez votre source Eleventy)
       - name: Checkout garden repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
+      # 2. Installe les dépendances Node.js (obligatoire pour builder)
       - name: Install dependencies
         run: npm install
 
+      # 3. Build le site statique (génère _site/)
       - name: Build the site
         run: npm run build
 
+      # 4. Clone le repo principal qui sert le site github.io
       - name: Clone target (main site) repo
         uses: actions/checkout@v4
         with:
@@ -28,18 +32,21 @@ jobs:
           token: ${{ secrets.TARGET_REPO_TOKEN }}
           path: main_site
 
+      # 5. Debug : liste les fichiers pour vérifier la présence de _site/
       - name: Debug: List files before copy
         run: |
           ls -l
           ls -l _site || echo "_site does not exist"
           ls -l main_site
 
+      # 6. Copie le site généré dans le bon dossier du repo principal
       - name: Copy garden to main site repo
         run: |
           rm -rf main_site/garden
           mkdir -p main_site/garden
-          cp -r _site/* main_site/garden/ 
+          cp -r _site/* main_site/garden/
 
+      # 7. Commit et push les changements sur le repo principal
       - name: Commit & push to main site
         run: |
           cd main_site
