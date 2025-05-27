@@ -33,7 +33,7 @@ jobs:
           path: main_site
 
       # 5. Debug : liste les fichiers pour vérifier la présence de _site/
-      - name: Debug: List files before copy
+      - name: Debug list files
         run: |
           ls -l
           ls -l dist || echo "_site does not exist"
