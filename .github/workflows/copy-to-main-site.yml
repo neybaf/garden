@@ -24,13 +24,13 @@ jobs:
         with:
           repository: neybaf/gouez_f
           token: ${{ secrets.TARGET_REPO_TOKEN }}
-          path: main_site
+          path: neybaf.github.io/gouez_f
 
       - name: Copy garden to main site repo
         run: |
-          rm -rf main_site/garden
-          mkdir -p main_site/garden
-          cp -r _site/* main_site/garden/  # Adaptez "_site" au dossier de sortie réel
+          rm -rf neybaf.github.io/gouez_f/garden
+          mkdir -p neybaf.github.io/gouez_f/garden
+          cp -r _site/* neybaf.github.io/gouez_f/garden/ 
 
       - name: Commit & push to main site
         run: |
