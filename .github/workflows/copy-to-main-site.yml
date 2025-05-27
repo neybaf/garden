@@ -1,0 +1,42 @@
+name: Copy Garden to Main Site
+
+on:
+  push:
+    branches:
+      - main   # ou la branche de publication de votre garden
+
+jobs:
+  copy-garden:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout garden repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # Si votre builder génère un site, build ici. Sinon, passez cette étape.
+      # - name: Build the site
+      #   run: npm install && npm run build
+
+      - name: Clone target (main site) repo
+        uses: actions/checkout@v4
+        with:
+          repository: neybaf/gouez_f
+          token: ${{ secrets.TARGET_REPO_TOKEN }}
+          path: main_site
+
+      - name: Copy garden to main site repo
+        run: |
+          rm -rf main_site/blog/garden
+          mkdir -p main_site/blog/garden
+          cp -r _site/* main_site/blog/garden/  # Adaptez "_site" au dossier de sortie réel
+
+      - name: Commit & push to main site
+        run: |
+          cd main_site
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git add blog/garden
+          git commit -m "Update digital garden from $GITHUB_SHA" || echo "No changes to commit"
+          git push
