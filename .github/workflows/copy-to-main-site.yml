@@ -15,9 +15,11 @@ jobs:
         with:
           fetch-depth: 1
 
-      # Si votre builder génère un site, build ici. Sinon, passez cette étape.
-      # - name: Build the site
-      #   run: npm install && npm run build
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the site
+        run: npm run build
 
       - name: Clone target (main site) repo
         uses: actions/checkout@v4
@@ -25,6 +27,12 @@ jobs:
           repository: neybaf/gouez_f
           token: ${{ secrets.TARGET_REPO_TOKEN }}
           path: main_site
+
+      - name: Debug: List files before copy
+        run: |
+          ls -l
+          ls -l _site || echo "_site does not exist"
+          ls -l main_site
 
       - name: Copy garden to main site repo
         run: |
