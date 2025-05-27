@@ -28,9 +28,9 @@ jobs:
 
       - name: Copy garden to main site repo
         run: |
-          rm -rf main_site/blog/garden
-          mkdir -p main_site/blog/garden
-          cp -r _site/* main_site/blog/garden/  # Adaptez "_site" au dossier de sortie réel
+          rm -rf main_site/garden
+          mkdir -p main_site/garden
+          cp -r _site/* main_site/garden/  # Adaptez "_site" au dossier de sortie réel
 
       - name: Commit & push to main site
         run: |
